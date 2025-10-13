@@ -4,28 +4,79 @@
     box-sizing: border-box;
 }
 header{
-    background-color: antiquewhite;
+    background-color: #6E8CFB;
     padding: 20px 20px;
     text-align: center;
     font-family: "Cabin Sketch", sans-serif;
     font-size: 30px;
     font-weight: 700;
-    border-bottom: 1px black solid;
+    border-bottom: 1px white solid;
     border-radius: 20px;
 }
 body{
-    background-image: url('./img/bg.jpg');
+    background-image: radial-gradient(circle at 50% 58%, white 16%, blue);
 }
 .container-div{
-    display: flex;
+    display: grid;
+    gap: 40px;
+    padding: 65px;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 15% 85%;
     align-content: center;
+    align-items: center;
+    justify-items: center;
     justify-content: center;
     margin: auto;
-    margin-top: 100px;
-    width: 1400px;
-    height: 650px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    width: 1200px;
+    height: 750px;
     border: 1px black solid;
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: #3C467B;
+}
+#search-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+#search-div > input {
+    width: 90%;
+    height: 80%;
+    text-align: center;
+    background-color: #636CCB;
+    border: 1px white solid;
+    border-radius: 12px;
+    font-size: 25px;
+}
+#filter-div{
+    background-color: #636CCB;
+    border: 1px white solid;
+    border-radius: 12px;
+    height: 50%;
+    width: 60%;
+}
+#list-div{
+    background-color: #636CCB;
+    border: 1px white solid;
+    border-radius: 12px;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+#options-div{
+    background-color: #636CCB;
+    border: 1px white solid;
+    border-radius: 12px;
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
 }
 
