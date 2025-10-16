@@ -6,6 +6,17 @@ const inputDate = document.getElementById('date');
 const inputPriority = document.getElementById('priority-form');
 const inputText = document.getElementById('description');
 
+let taskArray = [];
+
+//Constructive function for tasks
+function task(name, date, priority, text)
+{
+    this.name = name;
+    this.date = date;
+    this.priority = priority;
+    this.text = text;
+}
+
 // Add the new Task
 const addTask = (name, date, priority, text) =>
 {
@@ -40,6 +51,10 @@ const addTask = (name, date, priority, text) =>
      </li>
 
     `
+
+    //Stores task
+    taskArray.push(new task(name, date, priority, text));
+    console.log(taskArray);
 }
 
 submitButton.addEventListener('click', (event) =>{
@@ -50,7 +65,11 @@ submitButton.addEventListener('click', (event) =>{
     const priorityValue = inputPriority.value;
     const textValue = inputText.value;
 
-    addTask(nameValue, dateValue, priorityValue, textValue);
+    const temp = dateValue.split("-");
+
+    const normalizedDate = `${temp[2]}/${temp[1]}/${temp[0]}`;
+
+    addTask(nameValue, normalizedDate, priorityValue, textValue);
 
     inputName.value = '';
     inputDate.value = '';
@@ -58,3 +77,19 @@ submitButton.addEventListener('click', (event) =>{
     inputText.value = '';
     
 });
+
+/* 
+
+Next features:
+
+In order:
+
+- save task with js
+- functional search bar
+- completed button
+- recognize late tasks
+- functional filter
+- new task design
+- save tasks with localstorage
+
+*/
