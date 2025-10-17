@@ -19,6 +19,7 @@ function task(name, date, priority)
 const addTask = (name, date, priority) =>
 {
     let p;
+    let d;
     switch(priority)
     {
         case 'Alta':
@@ -31,7 +32,12 @@ const addTask = (name, date, priority) =>
             p = 'l';
             break;
         default:
-            alert('Bug at priority status');
+            p = 'disable';
+    }
+
+    if(date === '')
+    {
+        d = 'disable';
     }
 
     orderList.innerHTML += 
@@ -43,8 +49,7 @@ const addTask = (name, date, priority) =>
                 <span class="name">${name}</span>
             </div>
             <div class="right-side">
-                <div class="date-div">
-                    📅
+                <div class="date-div ${d}">
                     <span class="date">${date}</span>
                 </div>
                 <span class="priority ${p}"></span>
@@ -66,10 +71,26 @@ submitButton.addEventListener('click', (event) =>{
     const nameValue = inputName.value;
     const dateValue = inputDate.value;
     const priorityValue = inputPriority.value;
+    let normalizedDate = '';
 
-    const temp = dateValue.split("-");
+    if(nameValue === '')
+    {
+        alert('Por favor nomeie a tarefa');
+        return;
+    }
 
-    const normalizedDate = `${temp[2]}/${temp[1]}/${temp[0]}`;
+    if(dateValue !== '')
+    {
+        const temp = dateValue.split("-");
+
+        normalizedDate = `${temp[2]}/${temp[1]}/${temp[0]}`;
+    }
+    else
+    {
+        normalizedDate = '';
+    }
+
+
 
     addTask(nameValue, normalizedDate, priorityValue);
 
@@ -91,14 +112,12 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 Next features:
 
-In order:
-
+- Functional check task
+- new font 
 - functional search bar
-- completed button
 - Delete Button
 - recognize late tasks
 - functional filter
-- new task design
 
 
 */

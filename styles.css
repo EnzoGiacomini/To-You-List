@@ -135,13 +135,11 @@ form{
     margin-bottom: 20px;
 }
 .name{
-    text-align: center;
     padding-bottom: 6px;
     font-size: 28px;
     font-weight: bold;
     font-style: italic;
     width: 50%;
-    margin: auto;
 }
 .priority{
     width: 20px;
@@ -154,7 +152,7 @@ form{
     align-items: center;
 }
 .date-div{
-    width: 150px; 
+    width: 130px; 
     height: 35px; 
     border: 2px #4b6b55 solid;
     justify-content: center;
@@ -170,8 +168,8 @@ form{
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    padding: 0px 15px;
     align-items: center;
-    padding: 0px 30px;
     padding-bottom: 10px;
 }
 ol li::marker {
@@ -197,4 +195,13 @@ ol li::marker {
     display: flex;
     gap: 30px;
     align-items: center;
+}
+.left-side{
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+    gap: 20px;
+}
+.disable{
+    display: none;
 }
