@@ -54,8 +54,9 @@ const addTask = (name, date, priority, text) =>
 
     //Stores task
     taskArray.push(new task(name, date, priority, text));
-    console.log(taskArray);
+    window.localStorage.setItem('userTask', JSON.stringify(taskArray));
 }
+
 
 submitButton.addEventListener('click', (event) =>{
     event.preventDefault();
@@ -78,18 +79,26 @@ submitButton.addEventListener('click', (event) =>{
     
 });
 
+document.addEventListener('DOMContentLoaded', () =>{
+    const savedTasks = JSON.parse(localStorage.getItem('userTask')) || [];
+
+    savedTasks.forEach(info => {
+        addTask(info.name, info.date, info.priority, info.text);
+    });
+})
+
 /* 
 
 Next features:
 
 In order:
 
-- save task with js
 - functional search bar
 - completed button
+- Delete Button
 - recognize late tasks
 - functional filter
 - new task design
-- save tasks with localstorage
+
 
 */
