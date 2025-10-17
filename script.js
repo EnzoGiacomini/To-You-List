@@ -4,21 +4,19 @@ const submitButton = document.getElementById('submit-button');
 const inputName = document.getElementById('name');
 const inputDate = document.getElementById('date');
 const inputPriority = document.getElementById('priority-form');
-const inputText = document.getElementById('description');
 
 let taskArray = [];
 
 //Constructive function for tasks
-function task(name, date, priority, text)
+function task(name, date, priority)
 {
     this.name = name;
     this.date = date;
     this.priority = priority;
-    this.text = text;
 }
 
 // Add the new Task
-const addTask = (name, date, priority, text) =>
+const addTask = (name, date, priority) =>
 {
     let p;
     switch(priority)
@@ -40,20 +38,24 @@ const addTask = (name, date, priority, text) =>
     `
     <li class="to-do">
         <div class="info-container">
-            <span class="name">${name}</span>
-            <span class="priority ${p}">${priority}</span>
-            <div class="date-div">
-                📅
-                <span class="date">${date}</span>
+            <div class="left-side">
+                <input type="checkbox" class="task-done">
+                <span class="name">${name}</span>
             </div>
-            <p class="descrp">- ${text}</p>
+            <div class="right-side">
+                <div class="date-div">
+                    📅
+                    <span class="date">${date}</span>
+                </div>
+                <span class="priority ${p}"></span>
+            </div>
         </div>
      </li>
 
     `
 
     //Stores task
-    taskArray.push(new task(name, date, priority, text));
+    taskArray.push(new task(name, date, priority));
     window.localStorage.setItem('userTask', JSON.stringify(taskArray));
 }
 
@@ -64,18 +66,16 @@ submitButton.addEventListener('click', (event) =>{
     const nameValue = inputName.value;
     const dateValue = inputDate.value;
     const priorityValue = inputPriority.value;
-    const textValue = inputText.value;
 
     const temp = dateValue.split("-");
 
     const normalizedDate = `${temp[2]}/${temp[1]}/${temp[0]}`;
 
-    addTask(nameValue, normalizedDate, priorityValue, textValue);
+    addTask(nameValue, normalizedDate, priorityValue);
 
     inputName.value = '';
     inputDate.value = '';
     inputPriority.value = '';
-    inputText.value = '';
     
 });
 
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     const savedTasks = JSON.parse(localStorage.getItem('userTask')) || [];
 
     savedTasks.forEach(info => {
-        addTask(info.name, info.date, info.priority, info.text);
+        addTask(info.name, info.date, info.priority);
     });
 })
 

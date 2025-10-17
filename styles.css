@@ -104,14 +104,6 @@ form{
     border-radius: 12px;
     border-width: 2px;
 }
-#description{
-    height: 200px;
-    font-size: 18px;
-    text-wrap: wrap;
-    text-align: start;
-    vertical-align: top;
-    padding: 10px;
-}
 #submit-button{
     background-color: #5D866C;
     color: white;
@@ -152,38 +144,33 @@ form{
     margin: auto;
 }
 .priority{
-    width: 20%;
-    text-align: center;
-    border-radius: 12px;
-    padding: 5px;
-    margin: auto;
+    width: 20px;
+    height: 32px;   
+    border-radius: 50%;
+    padding: 1px 10px;
     font-size: 18px;
-    border: black 2px solid;
+    clip-path: circle(40% at 50% 50%);
+    border: black 6px solid;
+    align-items: center;
 }
 .date-div{
-    background-color: #4b6b55;
+    width: 150px; 
+    height: 35px; 
+    border: 2px #4b6b55 solid;
+    justify-content: center;
+    transform: skew(-20deg); 
     padding: 8px;
-    text-align: center;
-    width: 35%;
-    border-radius: 12px;
-    color: white;
-    margin: auto;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    color: black;
     font-size: 18px;
     font-weight: bold;
 }
-.descrp{
-    /* Permite quebra de linha em qualquer espaço */
-    white-space: normal;
-    /* Força a quebra de palavras muito longas */
-    word-break: break-all;
-}
 .info-container{
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 10px;
+    align-items: center;
     padding: 0px 30px;
     padding-bottom: 10px;
 }
@@ -204,4 +191,10 @@ ol li::marker {
 }
 .h{
     background-color: red;
+}
+
+.right-side{
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
