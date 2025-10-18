@@ -1,5 +1,6 @@
 const orderList = document.getElementsByClassName('task-list')[0]; //Get ol
 const submitButton = document.getElementById('submit-button');
+const taskContainer = document.getElementsByClassName('')
 
 const inputName = document.getElementById('name');
 const inputDate = document.getElementById('date');
@@ -53,6 +54,7 @@ const addTask = (name, date, priority) =>
                     <span class="date">${date}</span>
                 </div>
                 <span class="priority ${p}"></span>
+                <span class="delete"><img src="./img/trash.png" width="15px" height="15px"></span>
             </div>
         </div>
      </li>
@@ -107,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () =>{
         addTask(info.name, info.date, info.priority);
     });
 })
+
+
 
 /* 
 
