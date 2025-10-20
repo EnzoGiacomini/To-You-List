@@ -15,6 +15,7 @@ header{
 }
 body{
     background-image: radial-gradient(circle at 50% 58%, #F5F5F0 60%, #E6D8C3);
+    font-family: "Montserrat Alternates", sans-serif;
 }
 .container-div{
     display: grid;
@@ -210,7 +211,7 @@ ol li::marker {
     display: none;
     height: 25px;
     width: 25px;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0);
     align-items: center;
     justify-content: center;
     border-radius: 20px;
@@ -218,4 +219,8 @@ ol li::marker {
 }
 .info-container:hover .delete{
     display: flex;
+}
+.delete:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.795);
 }

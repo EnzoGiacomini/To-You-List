@@ -1,12 +1,14 @@
 const orderList = document.getElementsByClassName('task-list')[0]; //Get ol
 const submitButton = document.getElementById('submit-button');
 const taskContainer = document.getElementsByClassName('')
+let deleteButton = document.querySelectorAll('.delete');
 
 const inputName = document.getElementById('name');
 const inputDate = document.getElementById('date');
 const inputPriority = document.getElementById('priority-form');
 
 let taskArray = [];
+
 
 //Constructive function for tasks
 function task(name, date, priority)
@@ -99,6 +101,21 @@ submitButton.addEventListener('click', (event) =>{
     inputName.value = '';
     inputDate.value = '';
     inputPriority.value = '';
+
+    //updates the delete button list and makes it functional
+
+    deleteButton = document.querySelectorAll('.delete');
+
+    deleteButton.forEach(deleteBttn => {
+
+        deleteBttn.addEventListener('click', () => {
+        
+        const deletedTask = deleteBttn.closest('.to-do');
+
+        deletedTask.remove();
+
+    })
+})
     
 });
 
@@ -108,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () =>{
     savedTasks.forEach(info => {
         addTask(info.name, info.date, info.priority);
     });
+
+    deleteButton = document.querySelectorAll('.delete');
+    
 })
 
 
@@ -116,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 Next features:
 
+- Button removes taskArray
 - Functional check task
 - new font 
 - functional search bar
-- Delete Button
 - recognize late tasks
 - functional filter
 
