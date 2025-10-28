@@ -2,6 +2,7 @@ const orderList = document.getElementsByClassName('task-list')[0]; //Get ol
 const submitButton = document.getElementById('submit-button');
 const taskContainer = document.getElementsByClassName('')
 let deleteButton = document.querySelectorAll('.delete');
+let taskIndex = 0;
 
 const inputName = document.getElementById('name');
 const inputDate = document.getElementById('date');
@@ -11,15 +12,16 @@ let taskArray = [];
 
 
 //Constructive function for tasks
-function task(name, date, priority)
+function task(name, date, priority, index)
 {
     this.name = name;
     this.date = date;
     this.priority = priority;
+    this.index = index;
 }
 
 // Add the new Task
-const addTask = (name, date, priority) =>
+const addTask = (name, date, priority, index) =>
 {
     let p;
     let d;
@@ -45,7 +47,7 @@ const addTask = (name, date, priority) =>
 
     orderList.innerHTML += 
     `
-    <li class="to-do">
+    <li class="to-do" data-index="${index}">
         <div class="info-container">
             <div class="left-side">
                 <input type="checkbox" class="task-done">
@@ -64,8 +66,7 @@ const addTask = (name, date, priority) =>
     `
 
     //Stores task
-    taskArray.push(new task(name, date, priority));
-    window.localStorage.setItem('userTask', JSON.stringify(taskArray));
+    taskArray.push(new task(name, date, priority, index));
 }
 
 
@@ -96,37 +97,53 @@ submitButton.addEventListener('click', (event) =>{
 
 
 
-    addTask(nameValue, normalizedDate, priorityValue);
+    addTask(nameValue, normalizedDate, priorityValue, taskIndex);
+
+    taskIndex++;
+
+    window.localStorage.setItem('numIndex', JSON.stringify(taskIndex));
+    window.localStorage.setItem('userTask', JSON.stringify(taskArray));
 
     inputName.value = '';
     inputDate.value = '';
     inputPriority.value = '';
 
-    //updates the delete button list and makes it functional
+});
 
-    deleteButton = document.querySelectorAll('.delete');
+//Makes the delete button functional by bubbling
+orderList.addEventListener('click', (event) => {
+    const deleteButton = event.target.closest('.delete');
 
-    deleteButton.forEach(deleteBttn => {
+    if(deleteButton)
+    {
+        const deletedTask = deleteButton.closest('.to-do');
 
-        deleteBttn.addEventListener('click', () => {
-        
-        const deletedTask = deleteBttn.closest('.to-do');
+        const dataIndex = parseInt(deletedTask.getAttribute('data-index'));
+
+        const cIndex = taskArray.findIndex(task => task.index === dataIndex);
+
+        taskArray.splice(cIndex, 1);
+
+        taskIndex--;
+        window.localStorage.setItem('numIndex', JSON.stringify(taskIndex));
 
         deletedTask.remove();
 
-    })
+        window.localStorage.setItem('userTask', JSON.stringify(taskArray));
+    }
 })
-    
-});
 
 document.addEventListener('DOMContentLoaded', () =>{
     const savedTasks = JSON.parse(localStorage.getItem('userTask')) || [];
+    const numTask = JSON.parse(localStorage.getItem('numIndex') || 0);
 
     savedTasks.forEach(info => {
-        addTask(info.name, info.date, info.priority);
+        addTask(info.name, info.date, info.priority, info.index);
     });
 
-    deleteButton = document.querySelectorAll('.delete');
+    taskIndex = numTask
+
+    console.log(taskIndex);
     
 })
 
@@ -136,12 +153,9 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 Next features:
 
-- Button removes taskArray
-- Functional check task
-- new font 
+- Functional check task 
 - functional search bar
 - recognize late tasks
 - functional filter
-
 
 */
