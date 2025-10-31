@@ -76,7 +76,7 @@ body{
     border-radius: 12px;
     display: flex;
     padding: 20px;
-    height: 100%;
+    height: 80%;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -93,7 +93,7 @@ body{
 form{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     width: 85%;
     height: 90%;
     gap: 30px;
@@ -136,8 +136,8 @@ form{
     margin-bottom: 20px;
 }
 .name{
-    padding-bottom: 6px;
     font-size: 18px;
+    padding-top: 2px;
     font-weight: bold;
     font-style: italic;
     width: 50%;
@@ -168,10 +168,10 @@ form{
 .info-container{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     padding: 0px 15px;
-    align-items: center;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 ol li::marker {
     font-size: 24px;
@@ -226,4 +226,15 @@ ol li::marker {
 }
 .f-Title{
     font-family: "Cabin Sketch", sans-serif; 
+}
+.done{
+    text-decoration: line-through;
+    color: rgb(152, 152, 152);
+}
+.late{
+    background-color: red;
+    width: 100%;
+    padding: 5px;
+    border-radius: 12px;
+    color: white;
 }
