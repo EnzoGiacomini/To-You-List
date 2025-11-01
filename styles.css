@@ -194,7 +194,7 @@ ol li::marker {
 
 .right-side{
     display: flex;
-    gap: 20px;
+    gap: 0px;
     align-items: center;
 }
 .left-side{

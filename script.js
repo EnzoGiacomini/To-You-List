@@ -17,7 +17,7 @@ const getDays = (formatedDate) => {
     const months = parseInt(date[1]);
     const years = parseInt(date[0]);
 
-    const total = days + 30*(months) + 365*(years);
+    const total = days + 30 * (months) + 365 * (years);
 
     return total;
 }
@@ -37,33 +37,34 @@ const checkStatus = () => {
     const totalDays = getDays(date);
 
     taskArray.forEach(task => {
-        if(task.status === 'done') return;
+        if (task.status === 'done') return;
 
         let taskDates = task.date
 
-        if(taskDates === '' || taskDates === null) return;
+        if (taskDates === '' || taskDates === null) return;
 
-        const taskItem =  orderList.querySelector(`[data-index="${task.index}"]`);
+        const taskItem = orderList.querySelector(`[data-index="${task.index}"]`);
 
         if (!taskItem) return;
 
         const label = taskItem.querySelector('.name');
+        const dateSpan = taskItem.querySelector('.date');
 
         const temp = taskDates.split('/');
 
         taskDates = `${temp[2]}-${temp[1]}-${temp[0]}`;
 
-        const taskDayss =  getDays(taskDates);
+        const taskDayss = getDays(taskDates);
 
         label.classList.remove('on-going', 'late');
 
-        if(taskDayss < totalDays)
-        {
+        if (taskDayss < totalDays) {
             task.status = 'late';
             label.classList.add('late');
+            dateSpan.textContent = `${-(taskDayss - totalDays)} dias atrasados`;
+            dateSpan.style.fontSize = '10px'
         }
-        else
-        {
+        else {
             task.status = 'on-going';
             label.classList.add('on-going');
         }
@@ -75,8 +76,7 @@ const checkStatus = () => {
 }
 
 //Constructive function for tasks
-function task(name, date, priority, index, status)
-{
+function task(name, date, priority, index, status) {
     this.name = name;
     this.date = date;
     this.priority = priority;
@@ -85,12 +85,10 @@ function task(name, date, priority, index, status)
 }
 
 // Add the new Task
-const addTask = (name, date, priority, index, status) =>
-{
+const addTask = (name, date, priority, index, status) => {
     let p;
     let d;
-    switch(priority)
-    {
+    switch (priority) {
         case 'Alta':
             p = 'h';
             break;
@@ -104,13 +102,13 @@ const addTask = (name, date, priority, index, status) =>
             p = 'disable';
     }
 
-    if(date === '')
-    {
+    if (date === '' || status === 'done') {
         d = 'disable';
     }
 
-    const html = 
-    `
+
+    const html =
+        `
         <li class="to-do list-group-item d-flex justify-content-between align-items-center" data-index="${index}">
             <div class="info-container d-flex align-items-center w-100">
                 
@@ -125,10 +123,10 @@ const addTask = (name, date, priority, index, status) =>
                 </div>
                 
                 <div class="right-side d-flex align-items-center">
-                    <div class="date-div ${d} me-3">
+                    <div class="date-div ${d} ${d} me-3">
                         <span class="date">${date}</span>
                     </div>
-                    <span class="priority ${p} me-3"></span>
+                    <span class="priority ${p} ${d} me-3"></span>
                     <span class="delete" style="cursor: pointer;"><img src="./img/trash.png" width="15px" height="15px"></span>
                 </div>
             </div>
@@ -137,9 +135,8 @@ const addTask = (name, date, priority, index, status) =>
 
     orderList.insertAdjacentHTML('beforeend', html);
 
-    if(status === 'done')
-    {
-        const checkB = document.getElementById('task-'+index);
+    if (status === 'done') {
+        const checkB = document.getElementById('task-' + index);
 
         checkB.checked = true;
     }
@@ -149,7 +146,7 @@ const addTask = (name, date, priority, index, status) =>
     checkStatus();
 }
 
-submitButton.addEventListener('click', (event) =>{
+submitButton.addEventListener('click', (event) => {
     event.preventDefault();
 
     const nameValue = inputName.value;
@@ -157,20 +154,17 @@ submitButton.addEventListener('click', (event) =>{
     const priorityValue = inputPriority.value;
     let normalizedDate = '';
 
-    if(nameValue === '')
-    {
+    if (nameValue === '') {
         alert('Por favor nomeie a tarefa');
         return;
     }
 
-    if(dateValue !== '')
-    {
+    if (dateValue !== '') {
         const temp = dateValue.split("-");
 
         normalizedDate = `${temp[2]}/${temp[1]}/${temp[0]}`;
     }
-    else
-    {
+    else {
         normalizedDate = '';
     }
 
@@ -190,34 +184,38 @@ submitButton.addEventListener('click', (event) =>{
 });
 
 //Checkbox Logic
-orderList.addEventListener('click', (event) =>{
-    
+orderList.addEventListener('click', (event) => {
+
     const checkBox = event.target.closest('.task-done');
     const taskItem = checkBox.closest('.to-do');
+    const taskDate = taskItem.querySelector('.date-div');
+    const taskP = taskItem.querySelector('.priority');
     const taskText = taskItem.querySelector('.name');
 
     const dataIndex = parseInt(taskItem.getAttribute('data-index'));
 
     const cIndex = taskArray.findIndex(task => task.index === dataIndex);
 
-    if(checkBox.checked && checkBox)
-    {
+    if (checkBox.checked && checkBox) {
         taskText.classList.add('done');
         taskText.classList.remove('on-going', 'late');
         taskArray[cIndex].status = 'done';
+        taskDate.classList.add('disable');
+        taskP.classList.add('disable');
         window.localStorage.setItem('userTask', JSON.stringify(taskArray));
     }
-    else if(!checkBox.checked && checkBox)
-    {
+    else if (!checkBox.checked && checkBox) {
         taskText.classList.remove('done');
-        if(taskArray[cIndex].status !== 'on-going')
-        {
+        taskDate.classList.remove('disable');
+        if (taskArray[cIndex].priority != '') {
+            taskP.classList.remove('disable');
+        }
+        if (taskArray[cIndex].status !== 'on-going') {
             taskArray[cIndex].status = 'on-going'
             taskText.classList.add('on-going');
             checkStatus();
         }
-        else
-        {
+        else {
             taskText.classList.add('on-going');
             taskArray[cIndex].status = 'on-going';
         }
@@ -227,7 +225,7 @@ orderList.addEventListener('click', (event) =>{
 
 });
 
-statusGroup.addEventListener('change', (event) =>{
+statusGroup.addEventListener('change', (event) => {
     const selectedValue = event.target.value;
 
     const allTasks = orderList.querySelectorAll('.to-do');
@@ -237,13 +235,11 @@ statusGroup.addEventListener('change', (event) =>{
 
         taskItem.classList.remove('disable');
 
-        if(selectedValue === 'all')
-        {
+        if (selectedValue === 'all') {
             return;
         }
 
-        if(!label.classList.contains(selectedValue))
-        {
+        if (!label.classList.contains(selectedValue)) {
             taskItem.classList.add('disable');
         }
     })
@@ -253,8 +249,7 @@ statusGroup.addEventListener('change', (event) =>{
 orderList.addEventListener('click', (event) => {
     const deleteButton = event.target.closest('.delete');
 
-    if(deleteButton)
-    {
+    if (deleteButton) {
         const deletedTask = deleteButton.closest('.to-do');
 
         const dataIndex = parseInt(deletedTask.getAttribute('data-index'));
@@ -274,7 +269,7 @@ orderList.addEventListener('click', (event) => {
 
 
 
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', () => {
     const savedTasks = JSON.parse(localStorage.getItem('userTask')) || [];
     const numTask = JSON.parse(localStorage.getItem('numIndex') || 0);
 
@@ -285,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     taskIndex = numTask
 
 
-    
+
 })
 
 
@@ -294,9 +289,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 Next features:
 
-- Functional check task 
 - functional search bar
-- recognize late tasks
-- functional filter
 
 */
