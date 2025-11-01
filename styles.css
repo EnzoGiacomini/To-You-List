@@ -238,3 +238,6 @@ ol li::marker {
     border-radius: 12px;
     color: white;
 }
+.date{
+    text-align: center;
+}
