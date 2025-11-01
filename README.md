@@ -56,4 +56,4 @@ Sinta-se à vontade para sugerir melhorias, como otimizações de performance, n
 
 ---
 
-[Seu Nome/GitHub User] - [Ano Atual]
+Enzo Giacomini - 2025
