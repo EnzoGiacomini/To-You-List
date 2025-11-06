@@ -281,4 +281,25 @@ ol li::marker {
     .container-div{
         padding: 22px;
     }
+    .to-do{
+        overflow-x: auto;
+    }
+    .info-container{
+        justify-content: flex-start;
+        width: max-content;
+    }
+    .name{
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: unset;
+    }
+    .left-side, .right-side{
+        flex-shrink: 0;
+    }
+    .left-side{
+        min-width: unset;
+    }
+    .to-do::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
 }
